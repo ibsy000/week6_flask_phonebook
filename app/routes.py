@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template
-from app.forms import PhonebookForm
-from app.models import Entry
+from app.forms import PhonebookForm, LoginForm
+from app.models import Entry, LoginUser
 
 
 @app.route('/')
@@ -23,3 +23,17 @@ def add_entry():
             street_address, city=city, state=state, email=email)
         print(f"{new_entry.name} has been added to entries.")
     return render_template('add_entry.html', form=form)
+
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        print('Form has been validate! Yippee Ki-Yay!')
+        email = form.email.data
+        password = form.password.data
+        logged_in = LoginUser(email=email, password=password)
+        print(f"{logged_in.email} has logged in successfully")
+    return render_template('login.html', form=form)
+    

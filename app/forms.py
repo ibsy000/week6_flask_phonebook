@@ -1,13 +1,25 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms import StringField, SubmitField, PasswordField
+from wtforms.validators import InputRequired, Length
 
 # name, phone, street_address, city, state, email
 class PhonebookForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    phone_number = StringField('Phone Number', validators=[DataRequired()])
-    street_address = StringField('Address', validators=[DataRequired()] + [Length(min=7, max=14)])
-    city = StringField('City', validators=[DataRequired()])
-    state = StringField('State', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired()])
+    name = StringField('Name', validators=[InputRequired()])
+    phone_number = StringField('Phone Number', validators=[InputRequired()] + \
+        [Length(min=7, max=14)])
+    street_address = StringField('Address')
+    city = StringField('City')
+    state = StringField('State')
+    email = StringField('Email')
+    submit = SubmitField()
+    # okay so I decided from the user's pov, I would be annoyed if I HAD to add
+    # a full address and email when most people don't know that information
+    # anymore these days, besides I think this site could have an 'edit contact'
+    # option to add that info later
+
+
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[InputRequired()]) 
+    # I don't like coming up with usernames, so everyone gets to login with their email (:
+    password = PasswordField('Password', validators=[InputRequired()])
     submit = SubmitField()
