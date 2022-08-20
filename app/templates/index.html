@@ -4,7 +4,7 @@
 
 
 {% block content%}
-<div class="alert alert-light text-center mt-5" role="alert" style="color:rgba(0, 0, 0, 0.911);">
+<!-- <div class="alert alert-light text-center mt-5" role="alert" style="color:rgba(0, 0, 0, 0.911);">
     <h1 class="alert-heading" style="font-family:fantasy;">Welcome to PHONEBOOK</h1>
     <hr>
     <h3 class="text-center" style="font-family:'Franklin Gothic Medium', 
@@ -15,5 +15,52 @@
         'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;">Head over to the 
         ADD ENTRY page to get started adding contacts!<br>
     </h4>
+</div> -->
+
+{% if current_user.is_authenticated %}
+<h1 class="alert-heading text-center mt-5" style="font-family:fantasy;">Welcome to your PHONEBOOK</h1>
+    <h6 class="text-center">Signed in as: {{ current_user.username }}</h6>
+    <hr>
+
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Email</th>
+            <th scope="col">Street Address</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            </tr>
+        </thead>
+    {% for entry in entries %}
+        {% if entry.owner == current_user %}
+            <tbody>
+                <tr>
+                    <td>{{ entry.name }}</td>
+                    <td>{{ entry.phone_number }}</td>
+                    <td>{{ entry.email }}</td>
+                    <td>{{ entry.street_address }}</td>
+                    <td>{{ entry.city }}</td>
+                    <td>{{ entry.state }}</td>
+                </tr>
+            </tbody>
+        {% endif %}
+    {% endfor %}
+    </table>
+{% else %}
+<div class="alert alert-light text-center mt-5" role="alert" style="color:rgba(0, 0, 0, 0.911);">
+    <h1 class="alert-heading" style="font-family:fantasy;">Welcome to PHONEBOOK</h1>
+    <hr>
+    <h3 class="text-center" style="font-family:'Franklin Gothic Medium', 
+        'Arial Narrow', Arial, sans-serif ;">Do you still like using a phonebook, 
+        but you want to take it to the next level?</h3>
+    <hr>
+    <h4 class="text-center" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 
+        'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;">Head over to the 
+        Sign Up or Log In page to get started adding contacts!<br>
+    </h4>
 </div>
+{% endif %}
+
 {% endblock content%}

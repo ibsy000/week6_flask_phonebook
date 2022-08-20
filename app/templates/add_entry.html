@@ -15,6 +15,9 @@
         {{ form.phone_number.label }}
         {{ form.phone_number(class="form-control", placeholder ="Enter Phone Number") }}
 
+        {{ form.email.label }}
+        {{ form.email(class="form-control", placeholder ="Enter Email") }}
+
         {{ form.street_address.label }}
         {{ form.street_address(class="form-control", placeholder ="Enter Street Address") }}
 
@@ -23,10 +26,6 @@
 
         {{ form.state.label }}
         {{ form.state(class="form-control", placeholder ="Enter State") }}
-
-
-        {{ form.email.label }}
-        {{ form.email(class="form-control", placeholder ="Enter Email") }}
 
         {{ form.submit(class="btn btn-danger w-100 mt-3") }}
     </div>
