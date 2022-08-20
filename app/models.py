@@ -1,7 +1,7 @@
-from app import db
+from app import db, login
 from datetime import datetime
-from werkzeug.security import generate_password_hash
-# from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 
 class Entry(db.Model):
@@ -13,6 +13,9 @@ class Entry(db.Model):
     state = db.Column(db.String(50), nullable=True)
     email = db.Column(db.String(200), nullable=True)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    # lowercase 'user' because that is the name of the table, user.id because id is the column
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # SQL Equivalent = FOREIGN KEY(user_id) REFERENCES user(id)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -24,38 +27,53 @@ class Entry(db.Model):
 
 
 
-class LoginUser(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), nullable=False, unique=True)
-    password = db.Column(db.String(100), nullable=False)
-    login_history = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+# class LoginUser(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     email = db.Column(db.String(100), nullable=False, unique=True)
+#     password = db.Column(db.String(100), nullable=False)
+#     login_history = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.password = generate_password_hash(kwargs['password'])
-        db.session.add(self)
-        db.session.commit()
+#     def __init__(self, **kwargs):
+#         super().__init__(**kwargs)
+#         self.password = generate_password_hash(kwargs['password'])
+#         db.session.add(self)
+#         db.session.commit()
 
-    def __repr__(self):
-        return f"<Logged In User {self.id} | {self.email} >"
+#     def __repr__(self):
+#         return f"<Logged In User {self.id} | {self.email} >"
 
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), nullable=False, unique=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    entries = db.relationship('Entry', backref='owner', lazy='dynamic')
+    # this creates relationship between the many table that has the foreign key
+    # db.relationship('Method', backref='name' --references user.id, always lazy)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         # Save the password as the hashed version of the password
-        self.password = generate_password_hash(kwargs['password'])
+        self.set_password(kwargs['password'])
         db.session.add(self)
         db.session.commit()
 
     def __repr__(self):
         return f"<User {self.id} | {self.username}>"
 
+    # this is used when the password matches the password in the db to that user
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
+    # this takes in the user created password and hashes it for security
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+
+
+@login.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)

@@ -19,14 +19,14 @@ class PhonebookForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[InputRequired()]) 
-    # I don't like coming up with usernames, so everyone gets to login with their email (:
+    username = StringField('Username', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
     submit = SubmitField()
 
 
 class SignUpForm(FlaskForm):
     email = StringField('Email', validators=[InputRequired()])
+    username = StringField('Username', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
     confirm_pass = PasswordField('Confirm Password', validators=[InputRequired(), EqualTo('password')])
     submit = SubmitField()

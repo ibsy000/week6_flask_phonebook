@@ -13,6 +13,11 @@ db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
 
-# login = LoginManager(app)
+login = LoginManager(app)
+
+login.login_view = 'login' # tells the login manager which endpoint to redirect
+# if someone is accessing a part of the site when not logged in
+login.login_message = 'You must be logged int to do that.'
+login.login_message_category = 'danger'
 
 from . import routes, models
