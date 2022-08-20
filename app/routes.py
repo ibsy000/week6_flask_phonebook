@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, redirect, url_for, flash
-from app.forms import PhonebookForm, LoginForm
-from app.models import Entry, LoginUser
+from app.forms import PhonebookForm, LoginForm, SignUpForm
+from app.models import Entry, LoginUser, User
 
 
 @app.route('/')
@@ -43,4 +43,27 @@ def login():
         return redirect(url_for('add_entry'))
 
     return render_template('login.html', form=form)
+
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = SignUpForm()
+
+    if form.validate_on_submit():
+        print('Form has been validated! Hooray!!!')
+
+        email = form.email.data
+        password = form.password.data
+        existing_user = User.query.filter((User.email == email)).first()
+
+        if existing_user:
+            flash("A user with that email already exists.", "danger")
+            return redirect(url_for('signup')) 
+
+        new_user = User(email=email, password=password)
+        flash(f"{new_user.email} has been created.", "success")
+        
+        return redirect(url_for('index'))
+    return render_template('signup.html', form=form)
     

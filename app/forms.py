@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import InputRequired, Length
+from wtforms.validators import InputRequired, Length, EqualTo
 
 # name, phone, street_address, city, state, email
 class PhonebookForm(FlaskForm):
@@ -22,4 +22,11 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[InputRequired()]) 
     # I don't like coming up with usernames, so everyone gets to login with their email (:
     password = PasswordField('Password', validators=[InputRequired()])
+    submit = SubmitField()
+
+
+class SignUpForm(FlaskForm):
+    email = StringField('Email', validators=[InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired()])
+    confirm_pass = PasswordField('Confirm Password', validators=[InputRequired(), EqualTo('password')])
     submit = SubmitField()
