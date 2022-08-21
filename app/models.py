@@ -32,6 +32,10 @@ class Entry(db.Model):
                 setattr(self, key, value)
         db.session.commit()
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 
 class User(db.Model, UserMixin):

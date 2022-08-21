@@ -100,13 +100,14 @@ def logout():
     
 
 @app.route('/<entry_id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit_entry(entry_id):
     entry_to_edit = Entry.query.get_or_404(entry_id)
 
     # make sure the entry to edit is owned by the current user
     if entry_to_edit.owner != current_user:
         flash('You do not have permission to edit this entry', 'danger')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
 
     form = PhonebookForm()
     if form.validate_on_submit():
@@ -123,3 +124,18 @@ def edit_entry(entry_id):
         return redirect(url_for('index'))
 
     return render_template('edit_entry.html', entry=entry_to_edit, form=form)
+
+
+@app.route('/<entry_id>/delete')
+@login_required
+def delete_entry(entry_id):
+    entry_to_delete = Entry.query.get_or_404(entry_id)
+
+    if entry_to_delete.owner != current_user:
+        flash('You do not have permission to delete this entry.', 'danger')
+        return redirect(url_for('index'))
+    
+    entry_to_delete.delete()
+    flash(f'{entry_to_delete.name} has been deleted.', 'success')
+
+    return redirect(url_for('index'))
