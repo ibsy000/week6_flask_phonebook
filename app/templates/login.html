@@ -3,20 +3,20 @@
 {% block title %} Login {% endblock title %}
 
 {% block content %}
-
-<h1 class="text-center mt-5" style="font-family:fantasy;">Login Here!</h1>
+<h1 class="text-center mt-5" style="font-family: 'Berkshire Swash', cursive;">LOGIN HERE</h1>
+<hr>
 
 <form method="post">
     {{ form.csrf_token }}
     <div class="form-group d-flex-column">
 
-        {{ form.username.label }}
-        {{ form.username(class="form-control", placeholder="Enter Username")}}
+        <b>{{ form.username.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.username(class="form-control mb-3", placeholder ="Enter Username") }}
 
-        {{ form.password.label }}
-        {{ form.password(class="form-control", placeholder="Enter Password") }}
+        <b>{{ form.password.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.password(class="form-control mb-3", placeholder ="Enter Password") }}
 
-        {{ form.submit(class="btn btn-danger w-100 mt-3") }}
+        {{ form.submit(class='btn text-light w-100 mt-3', style="font-family: 'Aboreto', 'cursive'; background-color: #07472F;") }}
 
     </div>
 </form>

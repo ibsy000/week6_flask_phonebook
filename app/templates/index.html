@@ -4,27 +4,15 @@
 
 
 {% block content%}
-<!-- <div class="alert alert-light text-center mt-5" role="alert" style="color:rgba(0, 0, 0, 0.911);">
-    <h1 class="alert-heading" style="font-family:fantasy;">Welcome to PHONEBOOK</h1>
-    <hr>
-    <h3 class="text-center" style="font-family:'Franklin Gothic Medium', 
-        'Arial Narrow', Arial, sans-serif ;">Do you still like using a phonebook, 
-        but you want to take it to the next level?</h3>
-    <hr>
-    <h4 class="text-center" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 
-        'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;">Head over to the 
-        ADD ENTRY page to get started adding contacts!<br>
-    </h4>
-</div> -->
 
 {% if current_user.is_authenticated %}
-<h1 class="alert-heading text-center mt-5" style="font-family:fantasy;">Welcome to your PHONEBOOK</h1>
-<h6 class="text-center">Signed in as: {{ current_user.username }}</h6>
+<h1 class="text-center mt-5" style="font-family: 'Berkshire Swash', cursive;"><b>WELCOME TO YOUR PHONEBOOK</b></h1>
+<h6 class="text-center" style="font-family: 'Quicksand', sans-serif;"><b>Signed in as: {{ current_user.username }}</b></h6>
 <hr>
 
-    <table class="table table-dark table-striped">
+    <table class="table table-dark table-striped mt-4">
         <thead>
-            <tr>
+            <tr style="font-family: 'Aboreto', 'cursive';">
             <th scope="col">Name</th>
             <th scope="col">Phone Number</th>
             <th scope="col">Email</th>
@@ -36,7 +24,7 @@
         </thead>
     {% for entry in entries %}
         {% if entry.owner == current_user %}
-            <tbody>
+            <tbody style="font-family: 'Quicksand', sans-serif;">
                 <tr>
                     <td>{{ entry.name }}</td>
                     <td>{{ entry.phone_number }}</td>
@@ -78,34 +66,49 @@
         {% endif %}
     {% endfor %}
     </table>
-{% else %}
-<div class="card text-light bg-danger mt-5">
+{% else %} <!--I don't understand why my footer isn't at the bottom when this else statement is run...-->
+<div class="card text-light mt-5" style="background-color: #07472F;">
     <div class="card-body">
-        <h1 class="text-center" style="font-family:fantasy;">Welcome to PHONEBOOK</h1>
+        <center>
+        <pre>
+            _              _                
+            | |------------| |              
+         .-'| |            | |`-.           
+       .'   | |            | |   `.         
+    .-'      \ \          / /      `-.      
+  .'        _.| |--------| |._        `.    
+ /    -.  .'  | |        | |  `.  .-    \   
+/       `(    | |________| |    )'        \ 
+|          \  .i------------i.  /          |
+|        .-')/                \(`-.        |
+\    _.-'.-'/     ________     \`-.`-._    /
+\.-'_.-'  /   .-' ______ `-.   \  `-._`-./\ 
+ `-'     /  .' .-' _   _`-. `.  \     `-' \\
+        | .' .' _ (3) (2) _`. `. |        //
+       / /  /  (4)  ___  (1)_\  \ \       \\
+       | | |  _   ,'   `.==' `| | |       //
+       | | | (5)  | P.B.| (O) | | |      // 
+       | | |   _  `.___.' _   | | |      \\ 
+       | \  \ (6)  _   _ (9) /  / |      // 
+       /  `. `.   (7) (8)  .' .'  \      \\ 
+      /     `. `-.______.-' .'     \     // 
+     /        `-.________.-'        \ __//  
+    |                                |--'   
+    |================================|      
+    "--------------------------------"      
+        </pre>
+        </center>
+        <h1 class="text-center" style="font-family: 'Berkshire Swash', cursive;">WELCOME TO PHONEBOOK</h1>
         <hr>
-        <h3 class="text-center" style="font-family:'Franklin Gothic Medium', 
-            'Arial Narrow', Arial, sans-serif ;">Do you still like using a phonebook, 
-            but you want to take it to the next level?</h3>
+        <h1 class="text-center" style="font-family: 'Rancho', cursive;">Do you still like using a phonebook, 
+            but you want to take it to the next level?</h1>
         <hr>
-        <h4 class="text-center" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 
-            'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;">Head over to the 
-            Sign Up or Log In page to get started adding contacts!<br>
+        <h4 class="text-center" style="font-family: 'Quicksand', sans-serif;">Head over to the 
+            <b><i>Sign Up</i></b> or <b><i>Log In</i></b> page to get started adding contacts!<br>
         </h4>
     </div>
-  </div>
+</div>
 
-<!-- <div class="alert alert-light text-center mt-5" role="alert" style="color:rgba(0, 0, 0, 0.911);">
-    <h1 class="alert-heading" style="font-family:fantasy;">Welcome to PHONEBOOK</h1>
-    <hr>
-    <h3 class="text-center" style="font-family:'Franklin Gothic Medium', 
-        'Arial Narrow', Arial, sans-serif ;">Do you still like using a phonebook, 
-        but you want to take it to the next level?</h3>
-    <hr>
-    <h4 class="text-center" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 
-        'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;">Head over to the 
-        Sign Up or Log In page to get started adding contacts!<br>
-    </h4>
-</div> -->
 {% endif %}
 
 {% endblock content%}

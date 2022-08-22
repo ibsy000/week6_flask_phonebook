@@ -3,24 +3,24 @@
 {% block title %} Sign Up {% endblock title %}
 
 {% block content %}
-<h1 class="text-center mt-5" style="font-family:fantasy;">Sign Up Here!</h1>
-
+<h1 class="text-center mt-5" style="font-family: 'Berkshire Swash', cursive;">SIGN UP HERE</h1>
+<hr>
 <form method="post"> 
     {{ form.csrf_token }}
     <div class="form-group">
-        {{ form.email.label }}
-        {{ form.email(class='form-control', placeholder='Enter Email') }}
+        <b>{{ form.email.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.email(class="form-control mb-3", placeholder ="Enter Email") }}
 
-        {{ form.username.label }}
-        {{ form.username(class="form-control", placeholder="Enter Username")}}
+        <b>{{ form.username.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.username(class="form-control mb-3", placeholder ="Enter Username") }}
 
-        {{ form.password.label }}
-        {{ form.password(class='form-control', placeholder='Enter Password') }}
+        <b>{{ form.password.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.password(class="form-control mb-3", placeholder ="Enter Password") }}
 
-        {{ form.confirm_pass.label }}
-        {{ form.confirm_pass(class='form-control', placeholder='Confirm Password') }}
+        <b>{{ form.confirm_pass.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.confirm_pass(class="form-control mb-3", placeholder ="Confirm Password") }}
 
-        {{ form.submit(class='btn btn-danger w-100 mt-3')}}
+        {{ form.submit(class='btn text-light w-100 mt-3', style="font-family: 'Aboreto', 'cursive'; background-color: #07472F;")}}
     </div>
 </form>
 

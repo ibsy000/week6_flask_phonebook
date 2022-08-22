@@ -7,7 +7,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 @app.route('/')
 def index():
-    entries = Entry.query.all()
+    entries = Entry.query.order_by(Entry.name).all() # I wanted the entries displayed in order by name
     return render_template('index.html', entries=entries)
 
 @app.route('/add-entry', methods=['GET', 'POST'])

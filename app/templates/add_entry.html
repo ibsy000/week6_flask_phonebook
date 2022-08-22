@@ -3,31 +3,31 @@
 {% block title%}Add Entry{% endblock title%}
 
 {% block content%}
-<h1 class="text-center mt-5" style="font-family:fantasy;">Start by adding an entry now!</h1>
-
+<h1 class="text-center mt-5" style="font-family: 'Berkshire Swash', cursive;"><b>ADD AN ENTRY</b></h1>
+<hr>
 
 <form method="post">
     {{ form.csrf_token }}
     <div class="form-group">
-        {{ form.name.label }}
-        {{ form.name(class="form-control", placeholder ="Enter Name") }}
+        <b>{{ form.name.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.name(class="form-control mb-3", placeholder ="Enter Name") }}
 
-        {{ form.phone_number.label }}
-        {{ form.phone_number(class="form-control", placeholder ="Enter Phone Number") }}
+        <b>{{ form.phone_number.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.phone_number(class="form-control mb-3", placeholder ="Enter Phone Number") }}
 
-        {{ form.email.label }}
-        {{ form.email(class="form-control", placeholder ="Enter Email") }}
+        <b>{{ form.email.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.email(class="form-control mb-3", placeholder ="Enter Email") }}
 
-        {{ form.street_address.label }}
-        {{ form.street_address(class="form-control", placeholder ="Enter Street Address") }}
+        <b>{{ form.street_address.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.street_address(class="form-control mb-3", placeholder ="Enter Street Address") }}
 
-        {{ form.city.label }}
-        {{ form.city(class="form-control", placeholder ="Enter City") }}
+        <b>{{ form.city.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.city(class="form-control mb-3", placeholder ="Enter City") }}
 
-        {{ form.state.label }}
-        {{ form.state(class="form-control", placeholder ="Enter State") }}
+        <b>{{ form.state.label(style="font-family: 'Aboreto', 'cursive';") }}</b>
+        {{ form.state(class="form-control mb-3", placeholder ="Enter State") }}
 
-        {{ form.submit(class="btn btn-danger w-100 mt-3") }}
+        {{ form.submit(class="btn text-light w-100 mt-3", style="font-family: 'Aboreto', 'cursive'; background-color: #07472F;") }}
     </div>
 </form>
 {% endblock content%}
